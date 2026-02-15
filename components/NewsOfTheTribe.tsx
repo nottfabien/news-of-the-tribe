@@ -5,7 +5,7 @@ import { Menu, X, Download, Users, Newspaper, Mail, Heart, CheckCircle, Calendar
 
 const NewsOfTheTribe = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
   const plans = [
     {
