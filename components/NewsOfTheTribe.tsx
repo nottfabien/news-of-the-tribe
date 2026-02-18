@@ -751,7 +751,7 @@ const NewsOfTheTribe = ({
       </footer>		 
 	  
 	  <WelcomeOfferWidget />
-    </div>  {/* ← this is the existing closing tag of min-h-screen div */}
+    </div>  
   );
 };
 
