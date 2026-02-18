@@ -12,8 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-
-    // SEO Landing Pages (create these next)
     {
       url: `${SITE}/gift-for-grandparents`,
       lastModified: now,
@@ -38,22 +36,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
-
-    // Legal
     {
       url: `${SITE}/privacy`,
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,
     },
- ];
+  ];
 }
-
-    // Blog (future growth engine)
-/*   {
-      url: `${SITE}/blog`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-
