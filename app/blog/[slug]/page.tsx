@@ -3,14 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts } from "../posts";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const post = posts.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
   if (!post) return {};
   return {
     title: post.metaTitle,
@@ -26,7 +27,6 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
-// Minimal markdown-like renderer for the content
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
   const elements: React.ReactNode[] = [];
@@ -43,11 +43,11 @@ function renderContent(content: string) {
           {line.replace("## ", "")}
         </h2>
       );
-    } else if (line.startsWith("**") && line.endsWith("**")) {
+    } else if (line.startsWith("### ")) {
       elements.push(
-        <p key={i} className="font-bold text-gray-900 mt-4 mb-1">
-          {line.replace(/\*\*/g, "")}
-        </p>
+        <h3 key={i} className="text-xl font-bold text-gray-800 mt-6 mb-3">
+          {line.replace("### ", "")}
+        </h3>
       );
     } else if (line.startsWith("- ")) {
       const items: string[] = [];
@@ -57,17 +57,30 @@ function renderContent(content: string) {
       }
       elements.push(
         <ul key={`ul-${i}`} className="list-disc pl-6 space-y-2 my-4 text-gray-700">
-          {items.map((item, idx) => <li key={idx}>{item}</li>)}
+          {items.map((item, idx) => {
+            const parts = item.split(/(\*\*[^*]+\*\*)/g).map((p, j) =>
+              p.startsWith("**") ? <strong key={j}>{p.replace(/\*\*/g, "")}</strong> : p
+            );
+            return <li key={idx}>{parts}</li>;
+          })}
         </ul>
       );
       continue;
     } else if (line.startsWith("---")) {
       elements.push(<hr key={i} className="my-8 border-gray-200" />);
-    } else {
-      // Inline bold with **text**
-      const parts = line.split(/(\*\*[^*]+\*\*)/g).map((part, idx) =>
-        part.startsWith("**") ? <strong key={idx}>{part.replace(/\*\*/g, "")}</strong> : part
+    } else if (line.startsWith("> ")) {
+      elements.push(
+        <blockquote key={i} className="border-l-4 border-amber-400 pl-5 py-2 my-6 bg-amber-50 rounded-r-lg italic text-gray-700">
+          {line.replace("> ", "")}
+        </blockquote>
       );
+    } else {
+      const parts = line.split(/(\*\*[^*]+\*\*|\[.*?\]\(.*?\))/g).map((part, idx) => {
+        if (part.startsWith("**")) return <strong key={idx}>{part.replace(/\*\*/g, "")}</strong>;
+        const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/);
+        if (linkMatch) return <a key={idx} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className="text-green-800 underline hover:text-green-600">{linkMatch[1]}</a>;
+        return part;
+      });
       elements.push(
         <p key={i} className="text-gray-700 leading-relaxed mb-4">{parts}</p>
       );
@@ -77,8 +90,9 @@ function renderContent(content: string) {
   return elements;
 }
 
-export default function BlogPostPage({ params }: Props) {
-  const post = posts.find((p) => p.slug === params.slug);
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
 
   const others = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
@@ -132,10 +146,7 @@ export default function BlogPostPage({ params }: Props) {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Start connecting your family today</h2>
           <p className="text-gray-600 mb-6">Your first 2 months for just $7 AUD. No contracts, cancel anytime.</p>
-          <Link
-            href="/"
-            className="bg-green-800 hover:bg-green-900 text-white font-bold px-8 py-3 rounded-lg transition-colors inline-block"
-          >
+          <Link href="/" className="bg-green-800 hover:bg-green-900 text-white font-bold px-8 py-3 rounded-lg transition-colors inline-block">
             Learn About News of the Tribe →
           </Link>
         </div>
@@ -147,15 +158,11 @@ export default function BlogPostPage({ params }: Props) {
           <h2 className="text-xl font-bold text-gray-900 mb-6">More Articles</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {others.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/blog/${p.slug}`}
+              <Link key={p.slug} href={`/blog/${p.slug}`}
                 className="group bg-white border border-gray-200 hover:border-green-300 rounded-xl p-5 transition-all hover:shadow-md"
               >
                 <span className="text-xs font-bold text-green-800 uppercase tracking-wide">{p.category}</span>
-                <h3 className="font-bold text-gray-900 mt-1 group-hover:text-green-800 transition-colors leading-snug">
-                  {p.title}
-                </h3>
+                <h3 className="font-bold text-gray-900 mt-1 group-hover:text-green-800 transition-colors leading-snug">{p.title}</h3>
                 <p className="text-sm text-gray-500 mt-2">{p.readTime}</p>
               </Link>
             ))}
