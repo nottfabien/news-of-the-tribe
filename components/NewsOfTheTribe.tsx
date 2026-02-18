@@ -1,9 +1,19 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Menu, X, Download, Users, Newspaper, Mail, Heart, CheckCircle, Calendar, Camera, MessageCircle, ChevronRight, Star, Gift, Clock, Shield } from 'lucide-react';
+import { Menu, X, Download, Users, Newspaper, Mail, Heart, CheckCircle, Camera, MessageCircle, Star, Gift, Clock, Shield } from 'lucide-react';
 
-const NewsOfTheTribe = () => {
+type SeoIntro = {
+  title: string;
+  subtitle?: string;
+  paragraph: string;
+};
+
+const NewsOfTheTribe = ({
+  seoIntro,
+}: {
+  seoIntro?: SeoIntro;
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
@@ -32,7 +42,7 @@ const NewsOfTheTribe = () => {
       posts: '29 posts',
       photos: 'Up to 87 photos',
       description: 'Your Complete Family Story Every Month',
-      details: 'A comprehensive 16-page family newspaper with room for richer storytelling. More posts, more photos, more voices—ensuring grandparents feel truly included in the everyday moments, not just the big milestones.',
+      details: 'A comprehensive 16-page family newspaper with room for richer storytelling. More posts, more photos, more voices — ensuring grandparents feel truly included in the everyday moments, not just the big milestones.',
       ideal: 'Perfect for families with regular sharing, multiple households, or more frequent moments worth capturing and preserving.',
       features: [
         'Extended space for detailed family updates',
@@ -50,14 +60,14 @@ const NewsOfTheTribe = () => {
       posts: '37 posts',
       photos: 'Up to 111 photos',
       description: 'The Complete Family Magazine Experience',
-      details: 'Our premium 20-page family magazine—the most complete, magazine-style edition. Maximum capacity for updates, multiple feature stories, and a full set of recurring sections. Perfect for capturing every precious moment.',
+      details: 'Our premium 20-page family magazine — the most complete, magazine-style edition. Maximum capacity for updates, multiple feature stories, and a full set of recurring sections. Perfect for capturing every precious moment.',
       ideal: 'Designed for larger families, high sharing volume, or special editions celebrating holidays, birthdays, and major milestones.',
       features: [
         'Complete, professional magazine-style layout',
         'Maximum capacity for posts and photos',
         'Most immersive family reading experience',
         'Captures daily life, milestones, and small joys',
-        'Strongest emotional impact—cherished for years',
+        'Strongest emotional impact — cherished for years',
         'Every family member included without limits'
       ]
     }
@@ -73,25 +83,25 @@ const NewsOfTheTribe = () => {
     {
       step: 2,
       title: 'Create Your Family Tribe',
-      description: 'Set up your private family group and choose who receives the printed newspaper—grandparents, parents, or any loved one.',
+      description: 'Set up your private family group and choose who receives the printed newspaper — grandparents, parents, or any loved one.',
       icon: <Users size={32} />
     },
     {
       step: 3,
       title: 'Invite Family Members',
-      description: 'Share your unique Tribe code with siblings, children, cousins—up to 300 family members can contribute to each newspaper.',
+      description: 'Share your unique Tribe code with siblings, children, cousins — up to 300 family members can contribute to each newspaper.',
       icon: <Heart size={32} />
     },
     {
       step: 4,
-      title: 'Share Life\'s Moments',
+      title: "Share Life's Moments",
       description: 'Post photos, stories, funny moments, and updates throughout the month. Everyone in your Tribe can contribute and comment.',
       icon: <Camera size={32} />
     },
     {
       step: 5,
       title: 'We Print & Deliver',
-      description: 'Every first Monday of the month, we professionally print and mail your personalized newspaper directly to your loved ones\' doorstep.',
+      description: "Every first Monday of the month, we professionally print and mail your personalized newspaper directly to your loved ones' doorstep.",
       icon: <Mail size={32} />
     }
   ];
@@ -100,7 +110,7 @@ const NewsOfTheTribe = () => {
     {
       icon: <Heart size={32} />,
       title: 'Bridge the Digital Divide',
-      description: 'Perfect for grandparents and elderly relatives who aren\'t on social media or struggle with technology. They get to see family photos and updates in a format they love—print.'
+      description: "Perfect for grandparents and elderly relatives who aren't on social media or struggle with technology. They get to see family photos and updates in a format they love — print."
     },
     {
       icon: <Clock size={32} />,
@@ -125,7 +135,7 @@ const NewsOfTheTribe = () => {
     {
       icon: <MessageCircle size={32} />,
       title: 'Everyone Can Contribute',
-      description: 'All family members participate—from young children sharing drawings to adults posting updates. Everyone\'s voice matters in your family story.'
+      description: "All family members participate — from young children sharing drawings to adults posting updates. Everyone's voice matters in your family story."
     }
   ];
 
@@ -160,6 +170,33 @@ const NewsOfTheTribe = () => {
     }
   ];
 
+  const faqs = [
+    {
+      question: "How often do you print and deliver the newspaper?",
+      answer: "We professionally print and mail your personalised newspaper every first Monday of the month.",
+    },
+    {
+      question: "Can multiple family members contribute?",
+      answer: "Yes. You can invite up to 300 family members to your Tribe, and everyone can post photos and stories throughout the month.",
+    },
+    {
+      question: "Is it a subscription? Can I cancel anytime?",
+      answer: "Yes, it's monthly and flexible — no contracts. You can change plans or cancel anytime.",
+    },
+    {
+      question: "Do you deliver outside Australia?",
+      answer: "Yes. We include worldwide delivery, so your loved ones can receive it anywhere.",
+    },
+    {
+      question: "Is it private and ad-free?",
+      answer: "Completely. Your Tribe is private, there are no ads, and we don't sell your data.",
+    },
+    {
+      question: "Do we also get a digital copy?",
+      answer: "Yes. All members get a digital PDF version in addition to the printed delivery.",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -167,9 +204,9 @@ const NewsOfTheTribe = () => {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Main navigation">
           <div className="flex justify-between items-center h-24">
             <div className="flex items-center">
-              <img 
-                src="/images/NOTT-Logo5gradient.png" 
-                alt="News of the Tribe - Print Family Photos into Monthly Newspapers for Grandparents" 
+              <img
+                src="/images/NOTT-Logo5gradient.png"
+                alt="News of the Tribe - Print Family Photos into Monthly Newspapers for Grandparents"
                 className="h-20 w-auto"
                 width="80"
                 height="80"
@@ -187,7 +224,7 @@ const NewsOfTheTribe = () => {
               </a>
             </div>
 
-            <button 
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 rounded-lg hover:bg-gray-100 text-green-800"
               aria-label="Toggle menu"
@@ -215,15 +252,22 @@ const NewsOfTheTribe = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Turn Family Photos into Printed Newspapers for Grandparents
+                {seoIntro?.title ?? "Turn Family Photos into Printed Newspapers for Grandparents"}
               </h1>
-              <p className="text-2xl text-green-800 font-semibold mb-4">
-                Monthly Printed • Professionally Mailed • Cherished Forever
-              </p>
+              {seoIntro?.subtitle ? (
+                <p className="text-2xl text-green-800 font-semibold mb-4">
+                  {seoIntro.subtitle}
+                </p>
+              ) : (
+                <p className="text-2xl text-green-800 font-semibold mb-4">
+                  Monthly Printed • Professionally Mailed • Cherished Forever
+                </p>
+              )}
               <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                Share your family's best moments with loved ones who aren't on social media. We transform your photos and stories into beautiful printed newspapers, delivered monthly to grandparents, elderly relatives, and family members around the world.
+                {seoIntro?.paragraph ??
+                  "Share your family's best moments with loved ones who aren't on social media. We transform your photos and stories into beautiful printed newspapers, delivered monthly to grandparents, elderly relatives, and family members around the world."}
               </p>
-              
+
               <div className="bg-white p-6 rounded-xl shadow-lg border-2 border-green-100 mb-8">
                 <h2 className="font-bold text-lg text-gray-900 mb-4">Getting Started is Simple:</h2>
                 <ul className="space-y-3 text-gray-700">
@@ -248,7 +292,7 @@ const NewsOfTheTribe = () => {
 
               <div className="flex flex-wrap gap-4 mb-6">
                 <a href="#download" className="bg-green-800 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-900 transition-colors shadow-lg inline-flex items-center gap-2">
-                  Start your First News Of The Tribe 
+                  Start your First News Of The Tribe
                   <Download size={24} />
                 </a>
                 <a href="#how-it-works" className="border-2 border-green-800 text-green-800 px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors">
@@ -275,11 +319,11 @@ const NewsOfTheTribe = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative">
-              <img 
-                src="/images/GrandadGreatkids.jpg" 
-                alt="Grandparents reading family newspaper with grandchildren"
+              <img
+                src="/images/GrandadGreatkids.jpg"
+                alt="Grandparents reading personalised family newspaper with grandchildren"
                 className="rounded-2xl shadow-2xl"
                 loading="eager"
               />
@@ -310,7 +354,7 @@ const NewsOfTheTribe = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">For Elderly & Grandparents</h3>
               <p className="text-green-100 leading-relaxed">
-                Perfect for those who don't use smartphones or social media. They receive physical newspapers they can hold, read, and treasure—just like the old days.
+                Perfect for those who don't use smartphones or social media. They receive physical newspapers they can hold, read, and treasure — just like the old days.
               </p>
             </div>
             <div className="text-center">
@@ -328,7 +372,7 @@ const NewsOfTheTribe = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">Physical Memories That Last</h3>
               <p className="text-green-100 leading-relaxed">
-                Unlike digital posts that get lost in feeds, these printed newspapers become family heirlooms—re-read, shared at gatherings, and preserved for generations.
+                Unlike digital posts that get lost in feeds, these printed newspapers become family heirlooms — re-read, shared at gatherings, and preserved for generations.
               </p>
             </div>
           </div>
@@ -365,7 +409,7 @@ const NewsOfTheTribe = () => {
       <section id="how-it-works" className="py-20 px-4 bg-gradient-to-br from-amber-50 to-green-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">How to Create Your Family Newspaper</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">How to Create a Personalised Family Newspaper for Grandparents</h2>
             <p className="text-xl text-gray-600">From your phone to their doorstep in 5 simple steps</p>
           </div>
 
@@ -404,121 +448,169 @@ const NewsOfTheTribe = () => {
         </div>
       </section>
 
-{/* Pricing */}
-<section id="pricing" className="py-20 px-4 bg-white">
-  <div className="max-w-7xl mx-auto">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-900 mb-4">
-        Choose Your Perfect Family Plan
-      </h2>
-      <p className="text-xl text-gray-600 mb-2">
-        All plans include professional printing and worldwide delivery
-      </p>
-      <p className="text-lg text-green-800 font-semibold">
-        ✓ Flexible • ✓ No Contracts • ✓ Change Anytime • ✓ Cancel Anytime
-      </p>
-    </div>
-
-    <div className="grid md:grid-cols-3 gap-8 mb-12">
-      {plans.map((plan, idx) => (
-        <div 
-          key={idx} 
-          className={`bg-white rounded-2xl shadow-xl overflow-hidden transition-all hover:scale-105 ${
-            plan.popular ? 'border-4 border-green-800 relative ring-4 ring-green-100' : 'border border-gray-200'
-          }`}
-        >
-          {plan.popular && (
-            <div className="bg-gradient-to-r from-green-800 to-green-900 text-white text-center py-3 font-bold text-lg">
-              ⭐ MOST POPULAR CHOICE
-            </div>
-          )}
-          <div className="p-8">
-            {/* IMAGE DE LA FORMULE - NOUVELLE */}
-            <div className="mb-6 flex justify-center">
-              <img 
-                src={`/images/Formula${idx + 1}.jpg`}
-                alt={`${plan.name} example`}
-                className="w-48 h-auto rounded-lg shadow-md border-2 border-green-100"
-              />
-            </div>
-
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-            <div className="mb-4">
-              <span className="text-5xl font-bold text-green-800">${plan.price}</span>
-              <span className="text-gray-600 text-lg"> AUD/month</span>
-            </div>
-            <p className="text-gray-700 font-semibold italic mb-6 text-lg">{plan.description}</p>
-            
-            <div className="bg-gradient-to-br from-green-50 to-amber-50 p-5 rounded-lg mb-6 border border-green-200">
-              <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200">
-                <span className="font-bold text-gray-900">{plan.pages}</span>
-                <Newspaper className="text-green-800" size={24} />
-              </div>
-              <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200">
-                <span className="font-bold text-gray-900">{plan.posts}</span>
-                <MessageCircle className="text-green-800" size={24} />
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-gray-900">{plan.photos}</span>
-                <Camera className="text-green-800" size={24} />
-              </div>
-            </div>
-
-            <p className="text-gray-700 mb-4 leading-relaxed text-base">{plan.details}</p>
-            <p className="text-gray-600 mb-6 italic text-sm bg-amber-50 p-3 rounded border-l-4 border-amber-300">
-              <strong>Perfect for:</strong> {plan.ideal}
+      {/* Pricing */}
+      <section id="pricing" className="py-20 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Choose Your Perfect Family Plan
+            </h2>
+            <p className="text-xl text-gray-600 mb-2">
+              All plans include professional printing and worldwide delivery
             </p>
+            <p className="text-lg text-green-800 font-semibold">
+              ✓ Flexible • ✓ No Contracts • ✓ Change Anytime • ✓ Cancel Anytime
+            </p>
+          </div>
 
-            <div className="mb-6">
-              <p className="font-bold text-gray-900 mb-3">What's Included:</p>
-              <ul className="space-y-2">
-                {plan.features.map((feature, fidx) => (
-                  <li key={fidx} className="flex items-start gap-2 text-sm">
-                    <CheckCircle className="text-green-800 mt-0.5 flex-shrink-0" size={18} />
-                    <span className="text-gray-700">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {plans.map((plan, idx) => (
+              <div
+                key={idx}
+                className={`bg-white rounded-2xl shadow-xl overflow-hidden transition-all hover:scale-105 ${
+                  plan.popular ? 'border-4 border-green-800 relative ring-4 ring-green-100' : 'border border-gray-200'
+                }`}
+              >
+                {plan.popular && (
+                  <div className="bg-gradient-to-r from-green-800 to-green-900 text-white text-center py-3 font-bold text-lg">
+                    ⭐ MOST POPULAR CHOICE
+                  </div>
+                )}
+                <div className="p-8">
+                  <div className="mb-6 flex justify-center">
+                    <img
+                      src={`/images/Formula${idx + 1}.jpg`}
+                      alt={`${plan.name} example`}
+                      className="w-48 h-auto rounded-lg shadow-md border-2 border-green-100"
+                    />
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                  <div className="mb-4">
+                    <span className="text-5xl font-bold text-green-800">${plan.price}</span>
+                    <span className="text-gray-600 text-lg"> AUD/month</span>
+                  </div>
+                  <p className="text-gray-700 font-semibold italic mb-6 text-lg">{plan.description}</p>
+
+                  <div className="bg-gradient-to-br from-green-50 to-amber-50 p-5 rounded-lg mb-6 border border-green-200">
+                    <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200">
+                      <span className="font-bold text-gray-900">{plan.pages}</span>
+                      <Newspaper className="text-green-800" size={24} />
+                    </div>
+                    <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200">
+                      <span className="font-bold text-gray-900">{plan.posts}</span>
+                      <MessageCircle className="text-green-800" size={24} />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-gray-900">{plan.photos}</span>
+                      <Camera className="text-green-800" size={24} />
+                    </div>
+                  </div>
+
+                  <p className="text-gray-700 mb-4 leading-relaxed text-base">{plan.details}</p>
+                  <p className="text-gray-600 mb-6 italic text-sm bg-amber-50 p-3 rounded border-l-4 border-amber-300">
+                    <strong>Perfect for:</strong> {plan.ideal}
+                  </p>
+
+                  <div className="mb-6">
+                    <p className="font-bold text-gray-900 mb-3">What's Included:</p>
+                    <ul className="space-y-2">
+                      {plan.features.map((feature, fidx) => (
+                        <li key={fidx} className="flex items-start gap-2 text-sm">
+                          <CheckCircle className="text-green-800 mt-0.5 flex-shrink-0" size={18} />
+                          <span className="text-gray-700">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {selectedPlan === plan.name ? (
+                    <div className="w-full px-6 py-4 rounded-lg font-bold text-lg text-center bg-amber-50 border-2 border-amber-400 text-amber-800">
+                      ✓ Selected — Download the app to subscribe!
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => setSelectedPlan(plan.name)}
+                      className={`w-full px-6 py-4 rounded-lg font-bold text-lg transition-colors shadow-lg ${
+                        plan.popular
+                          ? 'bg-green-800 text-white hover:bg-green-900'
+                          : 'bg-gray-100 text-green-800 hover:bg-green-50 border-2 border-green-800'
+                      }`}
+                    >
+                      {plan.popular ? '🎯 Start with This Plan' : `Choose ${plan.name}`}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-gradient-to-br from-green-50 to-amber-50 p-8 rounded-2xl border-2 border-green-200 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Every Plan Includes:</h3>
+            <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              <div>
+                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
+                <p className="font-semibold">Professional printing on premium paper</p>
+              </div>
+              <div>
+                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
+                <p className="font-semibold">Worldwide delivery included</p>
+              </div>
+              <div>
+                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
+                <p className="font-semibold">Up to 300 family members per Tribe</p>
+              </div>
+              <div>
+                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
+                <p className="font-semibold">Digital PDF for all members</p>
+              </div>
             </div>
-
-            <button 
-              onClick={() => setSelectedPlan(plan.name)}
-              className={`w-full px-6 py-4 rounded-lg font-bold text-lg transition-colors shadow-lg ${
-                plan.popular 
-                  ? 'bg-green-800 text-white hover:bg-green-900' 
-                  : 'bg-gray-100 text-green-800 hover:bg-green-50 border-2 border-green-800'
-              }`}
-            >
-              {plan.popular ? '🎯 Start with This Plan' : `Choose ${plan.name}`}
-            </button>
           </div>
         </div>
-      ))}
-    </div>
+      </section>
 
-    <div className="bg-gradient-to-br from-green-50 to-amber-50 p-8 rounded-2xl border-2 border-green-200 text-center">
-      <h3 className="text-2xl font-bold text-gray-900 mb-4">Every Plan Includes:</h3>
-      <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-        <div>
-          <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-          <p className="font-semibold">Professional printing on premium paper</p>
+      {/* FAQ */}
+      <section id="faq" className="py-20 px-4 bg-gradient-to-br from-white to-green-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-gray-600">
+              Everything you need to know before creating your first edition
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {faqs.map((faq, idx) => (
+              <div
+                key={idx}
+                className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-800 hover:shadow-2xl transition-shadow"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  {faq.question}
+                </h3>
+                <p className="text-gray-700 text-base leading-relaxed">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-xl text-gray-700 font-semibold">
+              Still have questions?{" "}
+              <a
+                href="mailto:support@newsofthetribe.com"
+                className="text-green-800 underline hover:text-green-900"
+              >
+                Email our support team
+              </a>
+              .
+            </p>
+          </div>
         </div>
-        <div>
-          <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-          <p className="font-semibold">Worldwide delivery included</p>
-        </div>
-        <div>
-          <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-          <p className="font-semibold">Up to 300 family members per Tribe</p>
-        </div>
-        <div>
-          <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-          <p className="font-semibold">Digital PDF for all members</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Testimonials */}
       <section id="testimonials" className="py-20 px-4 bg-gradient-to-br from-amber-50 to-white">
@@ -548,7 +640,6 @@ const NewsOfTheTribe = () => {
 
           <div className="text-center mt-12">
             <p className="text-xl text-gray-700 font-semibold">
-      {/* Join 10,000+ families creating lasting memories */}
               Join Aussie families creating lasting memories
             </p>
           </div>
@@ -565,10 +656,10 @@ const NewsOfTheTribe = () => {
           <p className="text-xl text-green-100 mb-8 leading-relaxed">
             Download the app in minutes. Create your first family newspaper. See the joy on your loved ones' faces when they receive it in the mail.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-            <a 
-              href="https://play.google.com/store/apps/details?id=com.newsofthetribe.app" 
+            <a
+              href="https://play.google.com/store/apps/details?id=com.newsofthetribe.app"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white text-green-800 px-10 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors shadow-lg inline-flex items-center gap-3 min-w-[200px] justify-center"
@@ -576,8 +667,8 @@ const NewsOfTheTribe = () => {
               <Download size={24} />
               Google Play
             </a>
-            <a 
-              href="https://apps.apple.com/us/app/news-of-the-tribe/id6751501446" 
+            <a
+              href="https://apps.apple.com/us/app/news-of-the-tribe/id6751501446"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white text-green-800 px-10 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors shadow-lg inline-flex items-center gap-3 min-w-[200px] justify-center"
@@ -617,9 +708,9 @@ const NewsOfTheTribe = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <img 
-                src="/images/NOTT-LogoWhite.png" 
-                alt="News of the Tribe Logo" 
+              <img
+                src="/images/NOTT-LogoWhite.png"
+                alt="News of the Tribe Logo"
                 className="h-16 w-auto mb-4 brightness-0 invert"
               />
               <p className="text-gray-400 text-sm leading-relaxed">
