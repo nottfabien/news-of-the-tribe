@@ -1,5 +1,6 @@
 'use client'
 
+import WelcomeOfferWidget from './WelcomeOfferWidget';
 import React, { useState } from 'react';
 import { Menu, X, Download, Users, Newspaper, Mail, Heart, CheckCircle, Camera, MessageCircle, Star, Gift, Clock, Shield } from 'lucide-react';
 
@@ -747,8 +748,10 @@ const NewsOfTheTribe = ({
             <p className="italic">Reviving the art of connection, one printed newspaper at a time.</p>
           </div>
         </div>
-      </footer>
-    </div>
+      </footer>		 
+	  
+	  <WelcomeOfferWidget />
+    </div>  {/* ← this is the existing closing tag of min-h-screen div */}
   );
 };
 
