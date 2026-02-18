@@ -1,8 +1,8 @@
 'use client'
 
-import WelcomeOfferWidget from './WelcomeOfferWidget';
 import React, { useState } from 'react';
 import { Menu, X, Download, Users, Newspaper, Mail, Heart, CheckCircle, Camera, MessageCircle, Star, Gift, Clock, Shield } from 'lucide-react';
+import WelcomeOfferWidget from './WelcomeOfferWidget';
 
 type SeoIntro = {
   title: string;
@@ -15,8 +15,9 @@ const NewsOfTheTribe = ({
 }: {
   seoIntro?: SeoIntro;
 }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen]   = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [offerOpen, setOfferOpen]     = useState(false);
 
   const plans = [
     {
@@ -200,6 +201,10 @@ const NewsOfTheTribe = ({
 
   return (
     <div className="min-h-screen bg-white">
+
+      {/* Welcome Offer Widget — controlled from header button */}
+      <WelcomeOfferWidget isOpen={offerOpen} onClose={() => setOfferOpen(false)} />
+
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-50 border-b-2 border-amber-100">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Main navigation">
@@ -214,12 +219,20 @@ const NewsOfTheTribe = ({
               />
             </div>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               <a href="#home" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Home</a>
               <a href="#how-it-works" className="text-gray-700 hover:text-green-800 font-medium transition-colors">How It Works</a>
               <a href="#pricing" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Pricing</a>
               <a href="#benefits" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Benefits</a>
               <a href="#testimonials" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Reviews</a>
+              {/* Welcome Offer button */}
+              <button
+                onClick={() => setOfferOpen(true)}
+                className="bg-amber-400 hover:bg-amber-500 text-gray-900 px-5 py-3 rounded-lg font-bold transition-colors shadow-md flex items-center gap-2 animate-pulse hover:animate-none"
+              >
+                <Gift size={18} />
+                🎁 Welcome Offer
+              </button>
               <a href="#download" className="bg-green-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-900 transition-colors shadow-md">
                 Download App
               </a>
@@ -241,6 +254,12 @@ const NewsOfTheTribe = ({
               <a href="#pricing" className="block py-2 text-gray-700 hover:text-green-800">Pricing</a>
               <a href="#benefits" className="block py-2 text-gray-700 hover:text-green-800">Benefits</a>
               <a href="#testimonials" className="block py-2 text-gray-700 hover:text-green-800">Reviews</a>
+              <button
+                onClick={() => { setOfferOpen(true); setIsMenuOpen(false); }}
+                className="block w-full text-left py-2 text-amber-600 font-bold hover:text-amber-700"
+              >
+                🎁 Welcome Offer
+              </button>
               <a href="#download" className="block py-2 text-gray-700 hover:text-green-800">Download App</a>
             </div>
           )}
@@ -256,9 +275,7 @@ const NewsOfTheTribe = ({
                 {seoIntro?.title ?? "Turn Family Photos into Printed Newspapers for Grandparents"}
               </h1>
               {seoIntro?.subtitle ? (
-                <p className="text-2xl text-green-800 font-semibold mb-4">
-                  {seoIntro.subtitle}
-                </p>
+                <p className="text-2xl text-green-800 font-semibold mb-4">{seoIntro.subtitle}</p>
               ) : (
                 <p className="text-2xl text-green-800 font-semibold mb-4">
                   Monthly Printed • Professionally Mailed • Cherished Forever
@@ -302,22 +319,10 @@ const NewsOfTheTribe = ({
               </div>
 
               <div className="flex flex-wrap gap-6 text-sm text-gray-600">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="text-green-800" size={16} />
-                  <span>No contracts</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="text-green-800" size={16} />
-                  <span>Cancel anytime</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="text-green-800" size={16} />
-                  <span>100% ad-free</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="text-green-800" size={16} />
-                  <span>Private & secure</span>
-                </div>
+                <div className="flex items-center gap-2"><CheckCircle className="text-green-800" size={16} /><span>No contracts</span></div>
+                <div className="flex items-center gap-2"><CheckCircle className="text-green-800" size={16} /><span>Cancel anytime</span></div>
+                <div className="flex items-center gap-2"><CheckCircle className="text-green-800" size={16} /><span>100% ad-free</span></div>
+                <div className="flex items-center gap-2"><CheckCircle className="text-green-800" size={16} /><span>Private & secure</span></div>
               </div>
             </div>
 
@@ -384,14 +389,11 @@ const NewsOfTheTribe = ({
       <section id="benefits" className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              More Than Just a Printed Newsletter
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">More Than Just a Printed Newsletter</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               News of the Tribe creates meaningful connections between generations, preserves family history, and brings joy to loved ones who matter most.
             </p>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, idx) => (
               <div key={idx} className="bg-gradient-to-br from-green-50 to-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow border border-green-100">
@@ -413,7 +415,6 @@ const NewsOfTheTribe = ({
             <h2 className="text-4xl font-bold text-gray-900 mb-4">How to Create a Personalised Family Newspaper for Grandparents</h2>
             <p className="text-xl text-gray-600">From your phone to their doorstep in 5 simple steps</p>
           </div>
-
           <div className="grid md:grid-cols-5 gap-6 mb-16">
             {howItWorks.map((step) => (
               <div key={step.step} className="text-center">
@@ -421,16 +422,13 @@ const NewsOfTheTribe = ({
                   {step.step}
                 </div>
                 <div className="bg-white p-6 rounded-xl h-full border-2 border-green-100 shadow-md">
-                  <div className="text-green-800 mb-4 flex justify-center">
-                    {step.icon}
-                  </div>
+                  <div className="text-green-800 mb-4 flex justify-center">{step.icon}</div>
                   <h3 className="text-lg font-bold text-gray-900 mb-3">{step.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
                 </div>
               </div>
             ))}
           </div>
-
           <div className="bg-gradient-to-br from-white to-green-50 p-8 rounded-2xl border-2 border-green-200 shadow-xl">
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Your Newspaper Includes These Sections:</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -453,17 +451,10 @@ const NewsOfTheTribe = ({
       <section id="pricing" className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Choose Your Perfect Family Plan
-            </h2>
-            <p className="text-xl text-gray-600 mb-2">
-              All plans include professional printing and worldwide delivery
-            </p>
-            <p className="text-lg text-green-800 font-semibold">
-              ✓ Flexible • ✓ No Contracts • ✓ Change Anytime • ✓ Cancel Anytime
-            </p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Perfect Family Plan</h2>
+            <p className="text-xl text-gray-600 mb-2">All plans include professional printing and worldwide delivery</p>
+            <p className="text-lg text-green-800 font-semibold">✓ Flexible • ✓ No Contracts • ✓ Change Anytime • ✓ Cancel Anytime</p>
           </div>
-
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {plans.map((plan, idx) => (
               <div
@@ -485,14 +476,12 @@ const NewsOfTheTribe = ({
                       className="w-48 h-auto rounded-lg shadow-md border-2 border-green-100"
                     />
                   </div>
-
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
                   <div className="mb-4">
                     <span className="text-5xl font-bold text-green-800">${plan.price}</span>
                     <span className="text-gray-600 text-lg"> AUD/month</span>
                   </div>
                   <p className="text-gray-700 font-semibold italic mb-6 text-lg">{plan.description}</p>
-
                   <div className="bg-gradient-to-br from-green-50 to-amber-50 p-5 rounded-lg mb-6 border border-green-200">
                     <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200">
                       <span className="font-bold text-gray-900">{plan.pages}</span>
@@ -507,12 +496,10 @@ const NewsOfTheTribe = ({
                       <Camera className="text-green-800" size={24} />
                     </div>
                   </div>
-
                   <p className="text-gray-700 mb-4 leading-relaxed text-base">{plan.details}</p>
                   <p className="text-gray-600 mb-6 italic text-sm bg-amber-50 p-3 rounded border-l-4 border-amber-300">
                     <strong>Perfect for:</strong> {plan.ideal}
                   </p>
-
                   <div className="mb-6">
                     <p className="font-bold text-gray-900 mb-3">What's Included:</p>
                     <ul className="space-y-2">
@@ -524,7 +511,6 @@ const NewsOfTheTribe = ({
                       ))}
                     </ul>
                   </div>
-
                   {selectedPlan === plan.name ? (
                     <div className="w-full px-6 py-4 rounded-lg font-bold text-lg text-center bg-amber-50 border-2 border-amber-400 text-amber-800">
                       ✓ Selected — Download the app to subscribe!
@@ -545,26 +531,13 @@ const NewsOfTheTribe = ({
               </div>
             ))}
           </div>
-
           <div className="bg-gradient-to-br from-green-50 to-amber-50 p-8 rounded-2xl border-2 border-green-200 text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Every Plan Includes:</h3>
             <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              <div>
-                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-                <p className="font-semibold">Professional printing on premium paper</p>
-              </div>
-              <div>
-                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-                <p className="font-semibold">Worldwide delivery included</p>
-              </div>
-              <div>
-                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-                <p className="font-semibold">Up to 300 family members per Tribe</p>
-              </div>
-              <div>
-                <CheckCircle className="text-green-800 mx-auto mb-2" size={32} />
-                <p className="font-semibold">Digital PDF for all members</p>
-              </div>
+              <div><CheckCircle className="text-green-800 mx-auto mb-2" size={32} /><p className="font-semibold">Professional printing on premium paper</p></div>
+              <div><CheckCircle className="text-green-800 mx-auto mb-2" size={32} /><p className="font-semibold">Worldwide delivery included</p></div>
+              <div><CheckCircle className="text-green-800 mx-auto mb-2" size={32} /><p className="font-semibold">Up to 300 family members per Tribe</p></div>
+              <div><CheckCircle className="text-green-800 mx-auto mb-2" size={32} /><p className="font-semibold">Digital PDF for all members</p></div>
             </div>
           </div>
         </div>
@@ -574,40 +547,23 @@ const NewsOfTheTribe = ({
       <section id="faq" className="py-20 px-4 bg-gradient-to-br from-white to-green-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-xl text-gray-600">
-              Everything you need to know before creating your first edition
-            </p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-xl text-gray-600">Everything you need to know before creating your first edition</p>
           </div>
-
           <div className="grid md:grid-cols-3 gap-8">
             {faqs.map((faq, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-800 hover:shadow-2xl transition-shadow"
-              >
-                <h3 className="text-lg font-bold text-gray-900 mb-4">
-                  {faq.question}
-                </h3>
-                <p className="text-gray-700 text-base leading-relaxed">
-                  {faq.answer}
-                </p>
+              <div key={idx} className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-800 hover:shadow-2xl transition-shadow">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">{faq.question}</h3>
+                <p className="text-gray-700 text-base leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
-
           <div className="text-center mt-12">
             <p className="text-xl text-gray-700 font-semibold">
               Still have questions?{" "}
-              <a
-                href="mailto:support@newsofthetribe.com"
-                className="text-green-800 underline hover:text-green-900"
-              >
+              <a href="mailto:support@newsofthetribe.com" className="text-green-800 underline hover:text-green-900">
                 Email our support team
-              </a>
-              .
+              </a>.
             </p>
           </div>
         </div>
@@ -620,7 +576,6 @@ const NewsOfTheTribe = ({
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Real Families, Real Stories</h2>
             <p className="text-xl text-gray-600">See how News of the Tribe is bringing families closer together</p>
           </div>
-
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, idx) => (
               <div key={idx} className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-800 hover:shadow-2xl transition-shadow">
@@ -638,11 +593,8 @@ const NewsOfTheTribe = ({
               </div>
             ))}
           </div>
-
           <div className="text-center mt-12">
-            <p className="text-xl text-gray-700 font-semibold">
-              Join Aussie families creating lasting memories
-            </p>
+            <p className="text-xl text-gray-700 font-semibold">Join Aussie families creating lasting memories</p>
           </div>
         </div>
       </section>
@@ -651,56 +603,33 @@ const NewsOfTheTribe = ({
       <section id="download" className="py-20 px-4 bg-gradient-to-r from-green-800 to-green-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Connect Your Family?</h2>
-          <p className="text-2xl text-green-100 mb-4 font-semibold">
-            Start Your First News Of The Tribe Today
-          </p>
+          <p className="text-2xl text-green-100 mb-4 font-semibold">Start Your First News Of The Tribe Today</p>
           <p className="text-xl text-green-100 mb-8 leading-relaxed">
             Download the app in minutes. Create your first family newspaper. See the joy on your loved ones' faces when they receive it in the mail.
           </p>
-
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
             <a
               href="https://play.google.com/store/apps/details?id=com.newsofthetribe.app"
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="bg-white text-green-800 px-10 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors shadow-lg inline-flex items-center gap-3 min-w-[200px] justify-center"
             >
-              <Download size={24} />
-              Google Play
+              <Download size={24} />Google Play
             </a>
             <a
               href="https://apps.apple.com/us/app/news-of-the-tribe/id6751501446"
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="bg-white text-green-800 px-10 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors shadow-lg inline-flex items-center gap-3 min-w-[200px] justify-center"
             >
-              <Download size={24} />
-              App Store
+              <Download size={24} />App Store
             </a>
           </div>
-
           <div className="flex flex-wrap justify-center gap-8 text-green-100 mb-6">
-            <div className="flex items-center gap-2">
-              <CheckCircle size={20} />
-              <span>Free to download</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle size={20} />
-              <span>No contracts</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle size={20} />
-              <span>Cancel anytime</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle size={20} />
-              <span>Worldwide delivery</span>
-            </div>
+            <div className="flex items-center gap-2"><CheckCircle size={20} /><span>Free to download</span></div>
+            <div className="flex items-center gap-2"><CheckCircle size={20} /><span>No contracts</span></div>
+            <div className="flex items-center gap-2"><CheckCircle size={20} /><span>Cancel anytime</span></div>
+            <div className="flex items-center gap-2"><CheckCircle size={20} /><span>Worldwide delivery</span></div>
           </div>
-
-          <p className="text-2xl font-bold text-amber-300">
-            Because some moments are too precious to stay digital
-          </p>
+          <p className="text-2xl font-bold text-amber-300">Because some moments are too precious to stay digital</p>
         </div>
       </section>
 
@@ -709,11 +638,7 @@ const NewsOfTheTribe = ({
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <img
-                src="/images/NOTT-LogoWhite.png"
-                alt="News of the Tribe Logo"
-                className="h-16 w-auto mb-4 brightness-0 invert"
-              />
+              <img src="/images/NOTT-LogoWhite.png" alt="News of the Tribe Logo" className="h-16 w-auto mb-4 brightness-0 invert" />
               <p className="text-gray-400 text-sm leading-relaxed">
                 Transforming digital memories into printed treasures that bring families together across generations and distances.
               </p>
@@ -731,6 +656,7 @@ const NewsOfTheTribe = ({
               <h4 className="font-bold mb-4 text-lg">Company</h4>
               <ul className="space-y-2 text-gray-400 text-sm">
                 <li><a href="#testimonials" className="hover:text-white transition-colors">Customer Reviews</a></li>
+                <li><a href="/blog" className="hover:text-white transition-colors">Blog</a></li>
                 <li><a href="mailto:support@newsofthetribe.com" className="hover:text-white transition-colors">Contact Support</a></li>
                 <li><a href="mailto:info@newsofthetribe.com" className="hover:text-white transition-colors">General Inquiries</a></li>
               </ul>
@@ -748,10 +674,9 @@ const NewsOfTheTribe = ({
             <p className="italic">Reviving the art of connection, one printed newspaper at a time.</p>
           </div>
         </div>
-      </footer>		 
-	  
-	  <WelcomeOfferWidget />
-    </div>  
+      </footer>
+
+    </div>
   );
 };
 
