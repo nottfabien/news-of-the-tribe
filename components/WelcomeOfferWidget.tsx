@@ -6,7 +6,6 @@ import { pushEvent } from '@/lib/analytics';
 
 const PROMO_CODE = 'D2474B1E';
 
-type Status = 'idle' | 'loading' | 'success' | 'error';
 
 type Props = {
   isOpen: boolean;
@@ -14,26 +13,7 @@ type Props = {
 };
 
 export default function WelcomeOfferWidget({ isOpen, onClose }: Props) {
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail]         = useState('');
-  const [status, setStatus]       = useState<Status>('idle');
-
   if (!isOpen) return null;
-
-  const handleSubmit = async () => {
-    if (!firstName.trim() || !email.trim()) return;
-    setStatus('loading');
-    try {
-      const res = await fetch('/api/welcome-offer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, email }),
-      });
-      setStatus(res.ok ? 'success' : 'error');
-    } catch {
-      setStatus('error');
-    }
-  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -54,73 +34,35 @@ export default function WelcomeOfferWidget({ isOpen, onClose }: Props) {
           </button>
         </div>
 
-        <div className="p-5">
-          {status === 'success' ? (
-            <div className="text-center py-4">
-              <CheckCircle className="text-green-700 mx-auto mb-3" size={40} />
-              <p className="font-bold text-gray-900 text-lg mb-1">You're in! 🎉</p>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                We've received your request. Our team will send your exclusive offer to <strong>{email}</strong> shortly.
-              </p>
-              <button
-                onClick={onClose}
-                className="mt-4 text-sm text-gray-400 hover:text-gray-600 underline"
-              >
-                Close
-              </button>
-            </div>
-          ) : (
-            <>
-              <p className="font-bold text-gray-900 text-lg mb-1 leading-tight">
-                Your first 2 months for just $7 AUD
-              </p>
-              <p className="text-gray-500 text-sm mb-4 leading-relaxed">
-                Start connecting your family today at a fraction of the price. Limited time offer.
-              </p>
+        <div className="p-5 text-center">
+          <p className="text-gray-500 text-sm mb-4 leading-relaxed">
+            Your first <strong>News Of The Tribe</strong> is offered at:
+          </p>
 
-              <div className="space-y-3 mb-4">
-                <input
-                  type="text"
-                  placeholder="First name"
-                  value={firstName}
-                  onChange={e => setFirstName(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
-                />
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"
-                />
-              </div>
+          <p className="text-5xl font-extrabold text-green-800 mb-1">
+            $4.99
+            <span className="text-2xl font-bold text-gray-500 ml-1">AUD</span>
+          </p>
 
-              {status === 'error' && (
-                <p className="text-red-600 text-xs mb-3">
-                  Something went wrong. Please try again or email us directly.
-                </p>
-              )}
+          <p className="text-gray-400 text-xs mb-5">Limited time offer · No commitment</p>
 
-              <button
-                onClick={handleSubmit}
-                disabled={status === 'loading' || !firstName.trim() || !email.trim()}
-                className="w-full bg-green-800 text-white py-3 rounded-lg font-bold text-sm hover:bg-green-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {status === 'loading' ? (
-                  <>
-                    <Loader size={16} className="animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  'Claim My Offer'
-                )}
-              </button>
+          <div className="bg-amber-50 border-2 border-dashed border-amber-400 rounded-xl px-4 py-3">
+            <p className="text-xs text-gray-500 uppercase tracking-widest mb-1">Your promo code</p>
+            <p className="text-2xl font-extrabold tracking-widest text-gray-900 select-all">
+              D2474B1E
+            </p>
+          </div>
 
-              <p className="text-center text-gray-400 text-xs mt-3">
-                No commitment · Cancel anytime
-              </p>
-            </>
-          )}
+          <p className="text-gray-400 text-xs mt-4">
+            Use this code at checkout to claim your offer.
+          </p>
+
+          <button
+            onClick={onClose}
+            className="mt-4 text-sm text-gray-400 hover:text-gray-600 underline"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
