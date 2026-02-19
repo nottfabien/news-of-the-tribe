@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import GoogleTagManager from "@/components/GoogleTagManager";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.newsofthetribe.com"),

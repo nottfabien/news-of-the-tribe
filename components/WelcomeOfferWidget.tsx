@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { X, Gift, CheckCircle, Loader } from 'lucide-react';
+import { pushEvent } from '@/lib/analytics';
+
+const PROMO_CODE = 'D2474B1E';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
