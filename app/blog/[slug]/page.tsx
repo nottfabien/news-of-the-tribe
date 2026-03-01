@@ -24,6 +24,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/blog/${post.slug}`,
       type: "article",
       publishedTime: post.date,
+      authors: ["News of the Tribe"],
+      siteName: "News of the Tribe",
+      images: [
+        {
+          url: "/images/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.metaTitle,
+      description: post.metaDescription,
+      images: ["/images/og-image.jpg"],
     },
   };
 }
@@ -99,17 +115,61 @@ export default async function BlogPostPage({ params }: Props) {
   const postSources = sources[post.slug] ?? [];
   const others = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
+  // ── BlogPosting JSON-LD ──────────────────────────────────────────────────
+  // Upgraded from plain Article — enables Google article rich results,
+  // breadcrumb display, and better indexing signals.
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.metaDescription,
     datePublished: post.date,
-    author: { "@type": "Organization", name: "News of the Tribe" },
+    dateModified: post.date,
+    author: {
+      "@type": "Organization",
+      name: "News of the Tribe",
+      url: "https://www.newsofthetribe.com",
+    },
     publisher: {
       "@type": "Organization",
       name: "News of the Tribe",
-      logo: { "@type": "ImageObject", url: "https://www.newsofthetribe.com/images/NOTT-Logo5gradient.png" },
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.newsofthetribe.com/images/NOTT-Logo5gradient.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://www.newsofthetribe.com/blog/${post.slug}`,
+    },
+    image: {
+      "@type": "ImageObject",
+      url: "https://www.newsofthetribe.com/images/og-image.jpg",
+      width: 1200,
+      height: 630,
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.newsofthetribe.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: "https://www.newsofthetribe.com/blog",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: post.title,
+          item: `https://www.newsofthetribe.com/blog/${post.slug}`,
+        },
+      ],
     },
   };
 
@@ -120,9 +180,14 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Hero */}
       <div className="bg-gradient-to-r from-green-800 to-green-900 text-white py-16 px-4">
         <div className="max-w-3xl mx-auto">
-          <Link href="/blog" className="text-green-200 hover:text-white text-sm mb-6 inline-block transition-colors">
-            ← Back to Blog
-          </Link>
+          {/* Visible breadcrumb — matches the JSON-LD breadcrumb above */}
+          <nav className="text-xs text-green-300 mb-6 flex items-center gap-2">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+            <span>/</span>
+            <span className="text-green-100 truncate max-w-xs">{post.title}</span>
+          </nav>
           <span className="inline-block bg-amber-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full mb-4">
             {post.category}
           </span>

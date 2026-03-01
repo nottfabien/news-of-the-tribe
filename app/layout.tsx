@@ -11,16 +11,19 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Transform your family photos into a personalised printed family newspaper. Perfect for grandparents and loved ones who aren't on social media. Monthly delivery across Australia (and worldwide).",
+    "Australia's #1 printed family newspaper for grandparents. Turn your family photos into a personalised monthly newspaper — mailed directly to grandparents and aged care residents. No app needed on their end.",
 
   keywords: [
-    "family newspaper",
-    "print family photos",
-    "connect grandparents",
-    "family newsletter",
-    "printed family memories",
-    "elderly communication",
-    "personalised newspaper",
+    "gift for grandparents Australia",
+    "personalised gift for grandma",
+    "printed family newspaper Australia",
+    "gift ideas for grandparents",
+    "aged care family connection",
+    "family newspaper for elderly",
+    "printed photo newspaper grandparents",
+    "meaningful gift for grandparents",
+    "family connection aged care residents",
+    "personalised newspaper gift Australia",
   ],
 
   openGraph: {
@@ -28,23 +31,24 @@ export const metadata: Metadata = {
     locale: "en_AU",
     url: "/",
     siteName: "News of the Tribe",
-    title: "Printed Family Newspaper for Grandparents",
+    title: "Printed Family Newspaper for Grandparents | News of the Tribe",
     description:
-      "Monthly printed family newspaper made from your photos and stories. Easy for grandparents to read and keep.",
+      "Monthly printed family newspaper made from your photos and stories. Mailed to grandparents across Australia — no technology required on their end.",
     images: [
       {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "News of the Tribe - Printed family newspaper",
+        alt: "News of the Tribe - Personalised printed family newspaper for grandparents Australia",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Printed Family Newspaper for Grandparents",
-    description: "Keep grandparents connected with a printed family newspaper.",
+    title: "Printed Family Newspaper for Grandparents | News of the Tribe",
+    description:
+      "Turn your family photos into a personalised printed newspaper, mailed monthly to grandparents across Australia.",
     images: ["/images/og-image.jpg"],
   },
 
@@ -60,9 +64,8 @@ export const metadata: Metadata = {
     },
   },
 
-  // IMPORTANT:
-  // Do NOT set a global canonical to the homepage here.
-  // Each page should set its own canonical via metadata.alternates.canonical
+  // Do NOT set a global canonical here.
+  // Each page sets its own via metadata.alternates.canonical
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -73,6 +76,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: "https://www.newsofthetribe.com",
     logo: "https://www.newsofthetribe.com/images/NOTT-Logo5gradient.png",
     areaServed: "Australia",
+    sameAs: [
+      "https://www.facebook.com/newsofthetribe",
+      "https://www.instagram.com/newsofthetribe",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "info@newsofthetribe.com",
+      contactType: "customer support",
+      areaServed: "AU",
+      availableLanguage: "English",
+    },
   };
 
   return (
@@ -82,6 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
+        <GoogleTagManager />
         {children}
       </body>
     </html>

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { posts } from "@/app/blog/posts";
+import { posts } from "./blog/posts";
 
 const SITE = "https://www.newsofthetribe.com";
 
@@ -40,7 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
-    // NEW — aged care landing page
     {
       url: `${SITE}/aged-care-family-connection`,
       lastModified: now,
