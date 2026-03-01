@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { posts } from "@/app/blog/posts";
 
 const SITE = "https://www.newsofthetribe.com";
 
@@ -6,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   return [
-    // Homepage
+    // ── Homepage ────────────────────────────────────────────────────────────
     {
       url: `${SITE}/`,
       lastModified: now,
@@ -14,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
 
-    // SEO Landing Pages
+    // ── SEO Landing Pages ───────────────────────────────────────────────────
     {
       url: `${SITE}/gift-for-grandparents`,
       lastModified: now,
@@ -39,8 +40,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    // NEW — aged care landing page
+    {
+      url: `${SITE}/aged-care-family-connection`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
 
-    // Blog index
+    // ── Blog index ──────────────────────────────────────────────────────────
     {
       url: `${SITE}/blog`,
       lastModified: now,
@@ -48,33 +56,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
-    // Blog articles
-    {
-      url: `${SITE}/blog/gift-ideas-for-grandparents`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${SITE}/blog/how-to-keep-family-connected-long-distance`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${SITE}/blog/how-to-involve-kids-in-family-storytelling`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${SITE}/blog/loneliness-and-staying-connected-with-family`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    // ── Blog articles — dynamic, auto-includes every post in posts.ts ───────
+    ...posts.map((post) => ({
+      url: `${SITE}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    })),
 
-    // Legal
+    // ── Legal ───────────────────────────────────────────────────────────────
     {
       url: `${SITE}/privacy`,
       lastModified: now,
