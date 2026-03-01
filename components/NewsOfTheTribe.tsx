@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Menu, X, Download, Users, Newspaper, Mail, Heart, CheckCircle, Camera, MessageCircle, Star, Gift, Clock, Shield } from 'lucide-react';
+import Link from 'next/link';
+import { Menu, X, Download, Users, Newspaper, Mail, Heart, CheckCircle, Camera, MessageCircle, Star, Gift, Clock, Shield, BookOpen } from 'lucide-react';
 import WelcomeOfferWidget from './WelcomeOfferWidget';
 
 type SeoIntro = {
@@ -199,6 +200,25 @@ const NewsOfTheTribe = ({
     },
   ];
 
+  // Blog preview articles
+  const blogPreviews = [
+    {
+      slug: "gift-ideas-for-grandparents",
+      category: "Gift Ideas",
+      title: "10 Meaningful Gift Ideas for Grandparents (That Aren't Just Another Mug)",
+    },
+    {
+      slug: "why-kids-need-grandparents",
+      category: "Family Connection",
+      title: "Why Kids Need Their Grandparents (And How to Keep the Bond Strong)",
+    },
+    {
+      slug: "magic-of-handwritten-notes",
+      category: "Connection",
+      title: "The Magic of Handwritten Notes: Why Leaving Little Messages Matters",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -219,12 +239,23 @@ const NewsOfTheTribe = ({
               />
             </div>
 
+            {/* ── DESKTOP NAV ── */}
             <div className="hidden md:flex items-center space-x-6">
               <a href="#home" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Home</a>
               <a href="#how-it-works" className="text-gray-700 hover:text-green-800 font-medium transition-colors">How It Works</a>
               <a href="#pricing" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Pricing</a>
               <a href="#benefits" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Benefits</a>
               <a href="#testimonials" className="text-gray-700 hover:text-green-800 font-medium transition-colors">Reviews</a>
+
+              {/* ── BLOG LINK (new) ── */}
+              <Link
+                href="/blog"
+                className="text-green-800 hover:text-green-900 font-semibold transition-colors flex items-center gap-1.5 border-b-2 border-green-800 pb-0.5"
+              >
+                <BookOpen size={16} />
+                Blog
+              </Link>
+
               {/* Welcome Offer button */}
               <button
                 onClick={() => setOfferOpen(true)}
@@ -247,6 +278,7 @@ const NewsOfTheTribe = ({
             </button>
           </div>
 
+          {/* ── MOBILE MENU ── */}
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-gray-100">
               <a href="#home" className="block py-2 text-gray-700 hover:text-green-800">Home</a>
@@ -254,6 +286,17 @@ const NewsOfTheTribe = ({
               <a href="#pricing" className="block py-2 text-gray-700 hover:text-green-800">Pricing</a>
               <a href="#benefits" className="block py-2 text-gray-700 hover:text-green-800">Benefits</a>
               <a href="#testimonials" className="block py-2 text-gray-700 hover:text-green-800">Reviews</a>
+
+              {/* ── BLOG LINK mobile (new) ── */}
+              <Link
+                href="/blog"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 py-2 text-green-800 font-semibold hover:text-green-900"
+              >
+                <BookOpen size={16} />
+                Blog — Family Connection Stories
+              </Link>
+
               <button
                 onClick={() => { setOfferOpen(true); setIsMenuOpen(false); }}
                 className="block w-full text-left py-2 text-amber-600 font-bold hover:text-amber-700"
@@ -543,6 +586,43 @@ const NewsOfTheTribe = ({
         </div>
       </section>
 
+      {/* ── BLOG TEASER SECTION (new) ── */}
+      <section className="py-16 px-4 bg-gradient-to-br from-green-50 to-amber-50 border-t border-green-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+              <p className="text-green-800 font-semibold text-sm uppercase tracking-widest mb-2">From the Blog</p>
+              <h2 className="text-3xl font-bold text-gray-900">Stories & Ideas for Connected Families</h2>
+              <p className="text-gray-600 mt-2 max-w-xl">Tips, research, and reflections on keeping Australian families close — whatever the distance.</p>
+            </div>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 bg-green-800 hover:bg-green-900 text-white font-bold px-6 py-3 rounded-lg transition-colors shadow-md whitespace-nowrap"
+            >
+              <BookOpen size={18} />
+              Read All Articles →
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {blogPreviews.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group bg-white border border-gray-200 hover:border-green-300 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all"
+              >
+                <span className="inline-block bg-green-800 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
+                  {post.category}
+                </span>
+                <h3 className="font-bold text-gray-900 group-hover:text-green-800 transition-colors leading-snug">
+                  {post.title}
+                </h3>
+                <p className="text-green-700 text-sm font-semibold mt-3">Read article →</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section id="faq" className="py-20 px-4 bg-gradient-to-br from-white to-green-50">
         <div className="max-w-7xl mx-auto">
@@ -656,7 +736,7 @@ const NewsOfTheTribe = ({
               <h4 className="font-bold mb-4 text-lg">Company</h4>
               <ul className="space-y-2 text-gray-400 text-sm">
                 <li><a href="#testimonials" className="hover:text-white transition-colors">Customer Reviews</a></li>
-                <li><a href="/blog" className="hover:text-white transition-colors">Blog</a></li>
+                <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
                 <li><a href="mailto:support@newsofthetribe.com" className="hover:text-white transition-colors">Contact Support</a></li>
                 <li><a href="mailto:info@newsofthetribe.com" className="hover:text-white transition-colors">General Inquiries</a></li>
               </ul>
