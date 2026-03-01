@@ -46,6 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+	{ 
+	 url: `${SITE}/aged-care`, 
+	 lastModified: now, 
+	 changeFrequency: "monthly", 
+	 priority: 0.9 
+	},
 
     // ── Blog index ──────────────────────────────────────────────────────────
     {
