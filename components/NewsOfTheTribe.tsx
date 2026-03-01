@@ -188,7 +188,7 @@ const NewsOfTheTribe = ({
     },
     {
       question: "Do you deliver outside Australia?",
-      answer: "Yes. We include worldwide delivery, so your loved ones can receive it anywhere.",
+      answer: "We are currently working on expanding our international delivery options. If you would like News Of The Tribe delivered outside Australia, please email your request to info@newsofthetribe.com. We prioritise new countries based on demand and will do our best to accommodate your location as soon as possible.",
     },
     {
       question: "Is it private and ad-free?",
