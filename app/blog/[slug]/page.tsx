@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts } from "../posts";
+import { sources } from "../sources";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -95,6 +96,7 @@ export default async function BlogPostPage({ params }: Props) {
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
 
+  const postSources = sources[post.slug] ?? [];
   const others = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   const jsonLd = {
@@ -140,6 +142,30 @@ export default async function BlogPostPage({ params }: Props) {
         </p>
         {renderContent(post.content)}
       </article>
+
+      {/* Supporting Sources */}
+      {postSources.length > 0 && (
+        <div className="max-w-3xl mx-auto px-4 pb-12">
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-5">
+              Supporting Sources
+            </h2>
+            <ol className="space-y-4">
+              {postSources.map((s, idx) => (
+                <li key={idx} className="flex gap-4">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-800 text-white text-xs font-bold flex items-center justify-center mt-0.5">
+                    {idx + 1}
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">{s.label}</p>
+                    <p className="text-sm text-gray-500 mt-0.5">{s.ref}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      )}
 
       {/* CTA */}
       <div className="bg-gradient-to-br from-green-50 to-amber-50 border-t-2 border-green-100 py-12 px-4">
