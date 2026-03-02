@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default function AgedCarePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
