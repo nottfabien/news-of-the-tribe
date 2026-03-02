@@ -98,7 +98,7 @@ const faqJsonLd = {
       name: "How much does it cost per month?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Plans start from $19.99 AUD per month. There are no contracts and families can cancel anytime. Worldwide delivery is included in all plans.",
+        text: "Plans start from $19.99 AUD per month. There are no contracts and families can cancel anytime. Nationwide delivery is included in all plans.",
       },
     },
     {
@@ -426,7 +426,7 @@ export default function AgedCarePage() {
       <section className="py-20 px-4 bg-gradient-to-br from-green-50 to-amber-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Simple, flexible pricing</h2>
-          <p className="text-xl text-gray-500 mb-12">No contracts. Cancel anytime. Worldwide delivery included.</p>
+          <p className="text-xl text-gray-500 mb-12">No contracts. Cancel anytime. Delivery included within Australia.</p>
           <div className="grid md:grid-cols-3 gap-6 mb-10">
             {[
               { name: "The Update", price: "19.99", pages: "12 pages", photos: "Up to 63 photos", popular: false },
