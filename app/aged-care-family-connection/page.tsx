@@ -259,7 +259,7 @@ export default function AgedCarePage() {
               <div className="flex flex-wrap gap-4 text-sm text-gray-500">
                 <span className="flex items-center gap-1.5"><CheckCircle size={15} className="text-green-700" /> From $19.99/month</span>
                 <span className="flex items-center gap-1.5"><CheckCircle size={15} className="text-green-700" /> No contracts</span>
-                <span className="flex items-center gap-1.5"><CheckCircle size={15} className="text-green-700" /> Worldwide delivery</span>
+                <span className="flex items-center gap-1.5"><CheckCircle size={15} className="text-green-700" /> Australia wide delivery</span>
                 <span className="flex items-center gap-1.5"><CheckCircle size={15} className="text-green-700" /> Cancel anytime</span>
               </div>
             </div>
