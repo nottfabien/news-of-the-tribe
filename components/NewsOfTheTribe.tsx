@@ -188,7 +188,7 @@ const NewsOfTheTribe = ({
     },
     {
       question: "Do you deliver outside Australia?",
-      answer: "We are currently working on expanding our international delivery options. If you would like News Of The Tribe delivered outside Australia, please email your request to info@newsofthetribe.com. We prioritise new countries based on demand and will do our best to accommodate your location as soon as possible.",
+      answer: "Yes. We include worldwide delivery, so your loved ones can receive it anywhere.",
     },
     {
       question: "Is it private and ad-free?",
@@ -689,14 +689,14 @@ const NewsOfTheTribe = ({
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
             <a
-              href="https://play.google.com/store/apps/details?id=com.newsofthetribe.app"
+              href={process.env.NEXT_PUBLIC_PLAY_STORE_URL ?? "https://play.google.com/store/apps/details?id=com.newsofthetribe.app"}
               target="_blank" rel="noopener noreferrer"
               className="bg-white text-green-800 px-10 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors shadow-lg inline-flex items-center gap-3 min-w-[200px] justify-center"
             >
               <Download size={24} />Google Play
             </a>
             <a
-              href="https://apps.apple.com/us/app/news-of-the-tribe/id6751501446"
+              href={process.env.NEXT_PUBLIC_APP_STORE_URL ?? "https://apps.apple.com/us/app/news-of-the-tribe/id6751501446"}
               target="_blank" rel="noopener noreferrer"
               className="bg-white text-green-800 px-10 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition-colors shadow-lg inline-flex items-center gap-3 min-w-[200px] justify-center"
             >
